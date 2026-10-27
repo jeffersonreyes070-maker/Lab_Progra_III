@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth scroll-pt-16 md:scroll-pt-20 motion-reduce:scroll-auto">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Artesanías Guapinol.">
+
+    <title>Artesanías Guapinol</title>
+
+    <!-- Iconos del sitio favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,500..700&display=swap">
+
+    <!-- Tailwind y su configuración -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="JS/tailwind.config.js"></script>
+</head>
+
+<body class="bg-guapinol-light text-guapinol-green antialiased selection:bg-guapinol-primary/40">
+
+    <!-- ===== NAVBAR ===== -->
+    <header id="navbar" class="sticky top-0 z-50 border-b border-guapinol-brown/10
+                   bg-guapinol-light/90 backdrop-blur">
+
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navegación principal">
+
+            <div class="flex items-center justify-between h-16 md:h-20">
+
+                <a href="#inicio">
+                    <img src="assets/images/logo.png" alt="Artesanías Guapinol" class="block h-11 md:h-14 w-auto">
+                </a>
+
+                <!-- Menú de escritorio -->
+                <ul class="hidden md:flex items-center gap-1 lg:gap-3
+                           whitespace-nowrap text-sm lg:text-base font-medium">
+
+                    <li>
+                        <a href="#inicio" class="inline-block rounded-full px-2 lg:px-3 py-2
+                                  hover:bg-guapinol-cream
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#nosotros" class="inline-block rounded-full px-2 lg:px-3 py-2
+                                  hover:bg-guapinol-cream
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#catalogo" class="inline-block rounded-full border
+                                  border-guapinol-primary hover:border-guapinol-green
+                                  bg-guapinol-primary hover:bg-guapinol-green
+                                  hover:text-guapinol-light
+                                  px-3 lg:px-4 py-2 font-semibold shadow-sm
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Catálogo 360°
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#ferias" class="inline-block rounded-full px-2 lg:px-3 py-2
+                                  hover:bg-guapinol-cream
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Ferias
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#contacto" class="inline-block rounded-full px-2 lg:px-3 py-2
+                                  hover:bg-guapinol-cream
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Contacto
+                        </a>
+                    </li>
+
+                    <!-- Panel de administración -->
+                    <li>
+                        <a href="admin.html" class="inline-block rounded-full px-2 lg:px-3 py-2
+                                  text-sm text-guapinol-green/70 hover:bg-guapinol-cream
+                                  transition duration-200 hover:-translate-y-0.5">
+                            Admin
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="flex items-center gap-1">
+
+                    <!-- Botón del carrito -->
+                    <button id="boton-carrito" type="button" class="relative inline-flex items-center justify-center
+                                   h-11 w-11 rounded-full
+                                   hover:bg-guapinol-cream
+                                   transition-colors duration-200" aria-label="Abrir carrito">
+
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 4h2l2.4 11h10.2L20 7H6.2" />
+                            <circle cx="9" cy="19.5" r="1.3" />
+                            <circle cx="17" cy="19.5" r="1.3" />
+                        </svg>
+
+                        <!-- Cantidad de productos -->
+                        <span id="carrito-cantidad" class="absolute -right-0.5 -top-0.5 hidden items-center justify-center
+                                     h-5 min-w-5 rounded-full px-1
+                                     bg-guapinol-primary text-xs font-bold text-guapinol-green">
+                            0
+                        </span>
+                    </button>
+
+                    <!-- Botón del menú móvil -->
+                    <button id="boton-menu" type="button" class="inline-flex md:hidden items-center justify-center
+                                   h-11 w-11 rounded-full
+                                   hover:bg-guapinol-cream
+                                   transition-colors duration-200" aria-controls="menu-movil" aria-expanded="false"
+                        aria-label="Abrir menú">
+
+                        <svg id="icono-abrir" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <path d="M4 7h16M4 12h16M4 17h16" />
+                        </svg>
+
+                        <svg id="icono-cerrar" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <path d="M6 6l12 12M18 6 6 18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menú móvil -->
+            <div id="menu-movil" class="hidden md:hidden border-t border-guapinol-brown/10 py-3">
+
+                <ul class="flex flex-col gap-1 font-medium">
+
+                    <li>
+                        <a href="#inicio" class="block rounded-xl px-4 py-3
+                                  hover:bg-guapinol-cream
+                                  transition-colors duration-200">
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#nosotros" class="block rounded-xl px-4 py-3
+                                  hover:bg-guapinol-cream
+                                  transition-colors duration-200">
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#catalogo" class="block rounded-xl border
+                                  border-guapinol-primary hover:border-guapinol-green
+                                  bg-guapinol-primary hover:bg-guapinol-green
+                                  hover:text-guapinol-light
+                                  px-4 py-3 font-semibold
+                                  transition-colors duration-200">
+                            Catálogo 360°
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#ferias" class="block rounded-xl px-4 py-3
+                                  hover:bg-guapinol-cream
+                                  transition-colors duration-200">
+                            Ferias
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#contacto" class="block rounded-xl px-4 py-3
+                                  hover:bg-guapinol-cream
+                                  transition-colors duration-200">
+                            Contacto
+                        </a>
+                    </li>
+
+                    <!-- Panel de administración -->
+                    <li>
+                        <a href="admin.html" class="block rounded-xl px-4 py-3
+                                  text-guapinol-green/70 hover:bg-guapinol-cream
+                                  transition-colors duration-200">
+                            Administración
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- ===== PORTADA ===== -->
+        <section id="inicio" class="bg-[#f3eee7]">
+
+            <!-- Banner -->
+            <picture>
+                <source media="(max-width: 700px)" srcset="assets/images/banner-movil.jpg">
+                <img src="assets/images/banner.jpg" alt="Artesanías Guapinol: semillas, hojas y un tazón de madera"
+                    class="block w-full h-auto">
+            </picture>
+
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+                <div class="text-center">
+
+                    <p class="inline-block rounded-full border border-guapinol-brown/10
+                              bg-guapinol-cream px-4 py-1.5 text-sm font-medium">
+                        Artesanías · Bisutería
+                    </p>
+
+                    <h1 class="mt-6 text-balance text-4xl sm:text-5xl lg:text-6xl
+                               font-display font-semibold leading-tight tracking-tight">
+                        Personalizamos tus
+                        <span class="underline decoration-guapinol-primary decoration-4 underline-offset-8">
+                            ideas.
+                        </span>
+                    </h1>
+
+                    <p class="mt-6 text-lg sm:text-xl font-medium">
+                        Artesanías inspiradas en la naturaleza y creadas a tu medida.
+                    </p>
+
+                    <p class="max-w-xl mx-auto mt-4 leading-relaxed text-guapinol-green/80">
+                        Unimos el valor del trabajo hecho a mano con la tecnología: explora nuestras piezas
+                        y míralas girar en 360° antes de pedirlas.
+                    </p>
+
+                    <!-- Botones principales -->
+                    <div class="flex flex-col sm:flex-row sm:justify-center gap-4 mt-8">
+
+                        <a href="#catalogo" class="group inline-flex items-center justify-center gap-2
+                                  rounded-full border
+                                  border-guapinol-primary hover:border-guapinol-green
+                                  bg-guapinol-primary hover:bg-guapinol-green
+                                  hover:text-guapinol-light
+                                  px-8 py-4 font-semibold
+                                  shadow-lg shadow-guapinol-green/20
+                                  transition duration-300 hover:-translate-y-0.5">
+                            Ver catálogo 360°
+
+                            <svg class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M13 6l6 6-6 6" />
+                            </svg>
+                        </a>
+
+                        <a href="#nosotros" class="inline-flex items-center justify-center
+                                  rounded-full border
+                                  border-guapinol-green/20 hover:border-guapinol-green
+                                  hover:bg-guapinol-cream
+                                  px-8 py-4 font-semibold
+                                  transition duration-300">
+                            Conócenos
+                        </a>
+                    </div>
+
+                    <!-- Ventajas -->
+                    <ul class="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-10 text-sm font-medium">
+
+                        <li class="flex items-center gap-2">
+                            <span class="flex items-center justify-center h-8 w-8
+                                         rounded-full bg-guapinol-primary/25">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+                                </svg>
+                            </span>
+                            Hecho a mano
+                        </li>
+
+                        <li class="flex items-center gap-2">
+                            <span class="flex items-center justify-center h-8 w-8
+                                         rounded-full bg-guapinol-primary/25">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+                                    <circle cx="15" cy="7" r="2" />
+                                    <circle cx="9" cy="17" r="2" />
+                                </svg>
+                            </span>
+                            Diseño personalizado
+                        </li>
+
+                        <li class="flex items-center gap-2">
+                            <span class="flex items-center justify-center h-8 w-8
+                                         rounded-full bg-guapinol-primary/25">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
+                                    <path d="M4 7.5l8 4.5 8-4.5M12 12v9" />
+                                </svg>
+                            </span>
+                            Vista 360° de cada pieza
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== QUIÉNES SOMOS ===== -->
+        <section id="nosotros" class="py-16 md:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="max-w-3xl mx-auto text-center">
+
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-guapinol-brown/80
+                              underline decoration-guapinol-primary decoration-4 underline-offset-8">
+                        Quiénes somos
+                    </h2>
+
+                    <div class="mt-6 space-y-4 sm:text-lg leading-relaxed text-guapinol-green/80">
+                        <p>
+                            Somos un emprendimiento familiar costarricense dedicado al diseño y elaboración de
+                            bisutería artesanal única. Inspirados en la biodiversidad de nuestra tierra,
+                            trabajamos en equipo desde nuestro taller utilizando semillas y materiales de la zona
+                            para crear piezas y detalles especiales que transmiten la esencia, el color y la
+                            calidez de Costa Rica.
+                        </p>
+                        <p>
+                            Cada uno de nuestros accesorios está hecho a mano con dedicación y cariño familiar,
+                            ofreciendo un recuerdo auténtico y sostenible tanto para quienes nos visitan como
+                            para quienes desean llevar un pedacito de la naturaleza tica siempre consigo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjetas -->
+                <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+
+                    <li class="flex flex-col items-center rounded-2xl border border-guapinol-brown/10
+                               bg-guapinol-cream p-8 text-center
+                               transition duration-300 hover:-translate-y-1
+                               hover:shadow-lg hover:shadow-guapinol-green/10">
+
+                        <span class="flex items-center justify-center h-12 w-12
+                                     rounded-xl bg-guapinol-primary/25">
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+                            </svg>
+                        </span>
+
+                        <h3 class="mt-4 text-xl font-display font-semibold">
+                            Hecho a mano
+                        </h3>
+
+                        <p class="mt-2 text-sm leading-relaxed text-guapinol-green/80">
+                            Cada pulsera se elabora de forma manual, pieza por pieza.
+                        </p>
+                    </li>
+
+                    <li class="flex flex-col items-center rounded-2xl border border-guapinol-brown/10
+                               bg-guapinol-cream p-8 text-center
+                               transition duration-300 hover:-translate-y-1
+                               hover:shadow-lg hover:shadow-guapinol-green/10">
+
+                        <span class="flex items-center justify-center h-12 w-12
+                                     rounded-xl bg-guapinol-primary/25">
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 8c4 0 4 8 8 8s4-8 8-8" />
+                                <path d="M4 16c4 0 4-8 8-8s4 8 8 8" />
+                            </svg>
+                        </span>
+
+                        <h3 class="mt-4 text-xl font-display font-semibold">
+                            Personalización
+                        </h3>
+
+                        <p class="mt-2 text-sm leading-relaxed text-guapinol-green/80">
+                            Tú eliges los colores y los detalles para que tu pulsera refleje tu estilo.
+                        </p>
+                    </li>
+
+                    <li class="flex flex-col items-center rounded-2xl border border-guapinol-brown/10
+                               bg-guapinol-cream p-8 text-center
+                               transition duration-300 hover:-translate-y-1
+                               hover:shadow-lg hover:shadow-guapinol-green/10">
+
+                        <span class="flex items-center justify-center h-12 w-12
+                                     rounded-xl bg-guapinol-primary/25">
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z" />
+                            </svg>
+                        </span>
+
+                        <h3 class="mt-4 text-xl font-display font-semibold">
+                            Valor artesanal
+                        </h3>
+
+                        <p class="mt-2 text-sm leading-relaxed text-guapinol-green/80">
+                            Elegir una artesanía es reconocer la creatividad y el trabajo de quien la crea.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- ===== MISIÓN Y VISIÓN ===== -->
+        <section id="mision-vision" class="bg-guapinol-green py-16 md:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="max-w-2xl mx-auto text-center">
+
+                    <p class="text-sm font-semibold uppercase tracking-widest text-guapinol-primary">
+                        Nuestro propósito
+                    </p>
+
+                    <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl
+                               font-display font-semibold tracking-tight text-guapinol-light">
+                        Misión y visión
+                    </h2>
+
+                    <p class="mt-4 sm:text-lg text-guapinol-light/80">
+                        Lo que nos mueve hoy y hacia dónde queremos llegar.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 lg:gap-8 mt-12">
+
+                    <!-- Misión -->
+                    <article id="mision" class="flex flex-col rounded-3xl border border-guapinol-brown/10
+                                    bg-guapinol-cream p-8 sm:p-10 shadow-xl
+                                    transition duration-300 hover:-translate-y-1">
+
+                        <span class="flex items-center justify-center h-14 w-14
+                                     rounded-2xl bg-guapinol-primary">
+                            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" />
+                                <circle cx="12" cy="12" r="5" />
+                                <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                            </svg>
+                        </span>
+
+                        <h3 class="mt-6 text-2xl sm:text-3xl font-display font-semibold">
+                            Misión
+                        </h3>
+
+                        <p class="mt-4 leading-relaxed text-guapinol-green/80">
+                            Crear artesanías únicas y de alta calidad que fusionen la tradición y la innovación,
+                            utilizando materiales locales de manera sostenible, y generando un impacto positivo
+                            en las comunidades locales y el medio ambiente, mientras preservamos y difundimos
+                            nuestro legado cultural y artesanal.
+                        </p>
+
+                        <ul class="flex flex-wrap gap-2 mt-auto pt-6 text-xs font-semibold">
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Artesanía
+                            </li>
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Calidad
+                            </li>
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Personalización
+                            </li>
+                        </ul>
+                    </article>
+
+                    <!-- Visión -->
+                    <article id="vision" class="flex flex-col rounded-3xl border border-guapinol-brown/10
+                                    bg-guapinol-cream p-8 sm:p-10 shadow-xl
+                                    transition duration-300 hover:-translate-y-1">
+
+                        <span class="flex items-center justify-center h-14 w-14
+                                     rounded-2xl bg-guapinol-primary">
+                            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </span>
+
+                        <h3 class="mt-6 text-2xl sm:text-3xl font-display font-semibold">
+                            Visión
+                        </h3>
+
+                        <p class="mt-4 leading-relaxed text-guapinol-green/80">
+                            Convertirnos en un referente nacional e internacional en la creación de artesanías
+                            únicas y sostenibles que reflejen la riqueza cultural y natural de nuestra región,
+                            preservando las técnicas artesanales tradicionales y promoviendo la conservación de
+                            la biodiversidad y el desarrollo de comunidades locales.
+                        </p>
+
+                        <ul class="flex flex-wrap gap-2 mt-auto pt-6 text-xs font-semibold">
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Tradicionales
+                            </li>
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Biodiversidad
+                            </li>
+                            <li class="rounded-full border border-guapinol-brown/15 bg-guapinol-light px-3 py-1">
+                                Únicas
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CATÁLOGO ===== -->
+        <section id="catalogo" class="bg-guapinol-light py-16 md:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <p class="text-sm font-bold uppercase tracking-widest text-guapinol-brown/80
+                          underline decoration-guapinol-primary decoration-4 underline-offset-8">
+                    Nuestros productos
+                </p>
+
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mt-6">
+
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl font-display font-semibold tracking-tight">
+                            Catálogo
+                        </h2>
+
+                        <!-- Cantidad de productos -->
+                        <p id="catalog-total" class="mt-2 text-guapinol-green/80"></p>
+
+                        <!-- Aviso de la vista 360° -->
+                        <p class="mt-1 text-sm text-guapinol-green/70">
+                            Toca la foto de un producto para verlo en 360°.
+                        </p>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="flex flex-col md:items-end gap-3">
+
+                        <!-- En celular menús desplegables -->
+                        <div class="flex items-center gap-2 md:hidden">
+                            <label for="select-categoria" class="w-20 text-sm font-medium text-guapinol-green/80">
+                                Categoría:
+                            </label>
+
+                            <select id="select-categoria"
+                                class="flex-1 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm"></select>
+                        </div>
+
+                        <div class="flex items-center gap-2 md:hidden">
+                            <label for="select-material" class="w-20 text-sm font-medium text-guapinol-green/80">
+                                Material:
+                            </label>
+
+                            <select id="select-material"
+                                class="flex-1 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm"></select>
+                        </div>
+
+                        <!-- En computadora, botones -->
+                        <div class="hidden md:flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-medium text-guapinol-green/80">
+                                Categoría:
+                            </span>
+
+                            <div id="catalog-filtros" class="flex flex-wrap gap-2" role="group"
+                                aria-label="Filtrar por categoría"></div>
+                        </div>
+
+                        <div class="hidden md:flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-medium text-guapinol-green/80">
+                                Material:
+                            </span>
+
+                            <div id="catalog-materiales" class="flex flex-wrap gap-2" role="group"
+                                aria-label="Filtrar por material"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjetas del catálogo -->
+                <div id="catalog-grid" class="flex flex-wrap justify-center gap-4 md:gap-6 mt-10"></div>
+            </div>
+        </section>
+
+
+        <!-- ===== FERIAS ===== -->
+        <section id="ferias" class="bg-guapinol-light py-16 md:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <p class="text-sm font-bold uppercase tracking-widest text-guapinol-brown/80
+                          underline decoration-guapinol-primary decoration-4 underline-offset-8">
+                    Encuéntranos
+                </p>
+
+                <h2 class="mt-6 text-3xl sm:text-4xl font-display font-semibold tracking-tight">
+                    Ferias y puntos de venta
+                </h2>
+
+                <p class="max-w-2xl mt-3 text-guapinol-green/80">
+                    Visítanos, toca las piezas y llévate tu pulsera en persona.
+                </p>
+
+                <!-- Lista de ferias -->
+                <div id="ferias-lista" class="grid md:grid-cols-2 gap-5 mt-10"></div>
+            </div>
+        </section>
+
+
+        <!-- ===== CONTACTO ===== -->
+        <section id="contacto" class="bg-guapinol-cream py-16 md:py-24">
+            <div class="grid lg:grid-cols-5 gap-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <!-- Datos y redes -->
+                <div class="lg:col-span-2">
+
+                    <p class="text-sm font-bold uppercase tracking-widest text-guapinol-brown/80
+                              underline decoration-guapinol-primary decoration-4 underline-offset-8">
+                        Escríbenos
+                    </p>
+
+                    <h2 class="mt-6 text-3xl sm:text-4xl font-display font-semibold tracking-tight">
+                        Contacto
+                    </h2>
+
+                    <p class="max-w-md mt-3">
+                        ¿Quieres una pulsera, un pedido especial o tienes una duda?
+                        Escríbenos y te respondemos por WhatsApp.
+                    </p>
+
+                    <dl class="mt-8 space-y-5">
+
+                        <div>
+                            <dt class="text-sm text-stone-500">Propietaria</dt>
+                            <dd class="font-medium text-stone-900">Shirleny Quirós Hernández</dd>
+                        </div>
+
+                        <div>
+                            <dt class="text-sm text-stone-500">WhatsApp y SINPE Móvil</dt>
+                            <dd>
+                                <a href="https://wa.me/50684131678" target="_blank" rel="noopener" class="inline-flex items-center gap-2
+                                          font-medium text-stone-900 hover:text-lime-700">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path
+                                            d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.25-1.38A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.3 15l-.3-.18-3.1.82.83-3.03-.2-.31A8.1 8.1 0 0 1 12.04 3.8zM8.7 7.6c-.2 0-.5.07-.75.35-.25.28-.97.95-.97 2.3s.99 2.7 1.13 2.88c.14.18 1.9 3.05 4.7 4.15 2.3.9 2.77.72 3.27.68.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.12-.25-.18-.52-.32-.27-.13-1.6-.79-1.85-.88-.25-.09-.43-.13-.6.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.35-.81-.72-1.36-1.62-1.52-1.9-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.6-1.47-.83-2-.2-.48-.43-.41-.6-.42h-.5z" />
+                                    </svg>
+                                    8413 1678
+                                </a>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="text-sm text-stone-500">Instagram</dt>
+                            <dd>
+                                <a href="https://www.instagram.com/ArteGuapinol/" target="_blank" rel="noopener" class="inline-flex items-center gap-2
+                                          font-medium text-stone-900 hover:text-lime-700">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" aria-hidden="true">
+                                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                                        <circle cx="12" cy="12" r="4" />
+                                        <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+                                    </svg>
+                                    @ArteGuapinol
+                                </a>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="text-sm text-stone-500">Ubicación</dt>
+                            <dd class="font-medium text-stone-900">
+                                Hojancha, Guanacaste
+
+                                <a href="https://maps.app.goo.gl/AozQ8v1wDZB91prQA" target="_blank" rel="noopener"
+                                    class="ml-2 text-sm font-normal hover:text-lime-700
+                                          underline decoration-lime-400 decoration-2 underline-offset-4">
+                                    Cómo llegar
+                                </a>
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <!-- Mapa del taller -->
+                    <div class="mt-8 overflow-hidden rounded-2xl border border-stone-200">
+                        <iframe title="Ubicación del taller de Artesanías Guapinol"
+                            src="https://www.google.com/maps?q=10.028852,-85.402792&z=16&output=embed"
+                            class="w-full h-64" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Formulario de contacto -->
+                <form id="form-contacto" novalidate class="lg:col-span-3 grid sm:grid-cols-2 gap-5
+                             rounded-3xl border border-stone-200 bg-white p-6 md:p-8">
+
+                    <div class="sm:col-span-2">
+                        <label for="nombre" class="block text-sm font-medium text-stone-900">
+                            Nombre
+                        </label>
+
+                        <input id="nombre" name="nombre" type="text" autocomplete="name" class="w-full mt-1 border border-stone-300 rounded-xl
+                                      bg-white px-4 py-3 outline-none
+                                      focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                                     ">
+
+                        <p id="error-nombre" class="mt-1 text-sm text-red-600"></p>
+                    </div>
+
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium text-stone-900">
+                            Teléfono
+                        </label>
+
+                        <input id="telefono" name="telefono" type="tel" inputmode="numeric" autocomplete="tel"
+                            placeholder="8888 8888" class="w-full mt-1 border border-stone-300 rounded-xl
+                                      bg-white px-4 py-3 outline-none
+                                      focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                                     ">
+
+                        <p id="error-telefono" class="mt-1 text-sm text-red-600"></p>
+                    </div>
+
+                    <div>
+                        <label for="correo" class="block text-sm font-medium text-stone-900">
+                            Correo
+                            <span class="font-normal text-stone-500">(opcional)</span>
+                        </label>
+
+                        <input id="correo" name="correo" type="email" autocomplete="email" class="w-full mt-1 border border-stone-300 rounded-xl
+                                      bg-white px-4 py-3 outline-none
+                                      focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                                     ">
+
+                        <p id="error-correo" class="mt-1 text-sm text-red-600"></p>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="motivo" class="block text-sm font-medium text-stone-900">
+                            Motivo
+                        </label>
+
+                        <select id="motivo" name="motivo" class="w-full mt-1 border border-stone-300 rounded-xl
+                                       bg-white px-4 py-3 outline-none
+                                       focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                                      ">
+                            <option value="">Elige una opción</option>
+                            <option>Quiero hacer un pedido</option>
+                            <option>Pulsera personalizada</option>
+                            <option>Pedido para regalo o evento</option>
+                            <option>Otra consulta</option>
+                        </select>
+
+                        <p id="error-motivo" class="mt-1 text-sm text-red-600"></p>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="mensaje" class="block text-sm font-medium text-stone-900">
+                            Mensaje
+                        </label>
+
+                        <textarea id="mensaje" name="mensaje" rows="4" class="w-full mt-1 border border-stone-300 rounded-xl
+                                         bg-white px-4 py-3 outline-none
+                                         focus:border-lime-500 focus:ring-2 focus:ring-lime-200
+                                        "></textarea>
+
+                        <p id="error-mensaje" class="mt-1 text-sm text-red-600"></p>
+                    </div>
+
+                    <div class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3">
+
+                        <button type="submit" class="h-12 rounded-xl bg-stone-900 hover:bg-stone-700
+                                       px-6 font-medium text-white
+                                       focus-visible:outline focus-visible:outline-2
+                                       focus-visible:outline-offset-2 focus-visible:outline-lime-500">
+                            Enviar por WhatsApp
+                        </button>
+
+                        <!-- Estado del envío -->
+                        <p id="form-estado" role="status" class="text-sm text-lime-700"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-stone-900 text-stone-300">
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl mx-auto px-4 py-12">
+
+            <div class="lg:col-span-2">
+                <p class="text-lg font-bold text-white">
+                    Artesanías Guapinol
+                </p>
+
+                <p class="max-w-sm mt-3 text-sm text-stone-400">
+                    Pulseras y collares de macramé, piedras naturales y semillas,
+                    hechos a mano en Hojancha, Guanacaste.
+                </p>
+            </div>
+
+            <nav aria-label="Secciones">
+                <p class="font-semibold text-white">Secciones</p>
+
+                <ul class="mt-3 space-y-2 text-sm">
+                    <li><a href="#inicio" class="hover:text-lime-300">Inicio</a></li>
+                    <li><a href="#nosotros" class="hover:text-lime-300">Nosotros</a></li>
+                    <li><a href="#catalogo" class="hover:text-lime-300">Catálogo</a></li>
+                    <li><a href="#ferias" class="hover:text-lime-300">Ferias</a></li>
+                    <li><a href="#contacto" class="hover:text-lime-300">Contacto</a></li>
+                    <li><a href="admin.html" class="hover:text-lime-300">Administración</a></li>
+                </ul>
+            </nav>
+
+            <div>
+                <p class="font-semibold text-white">Síguenos</p>
+
+                <ul class="mt-3 space-y-2 text-sm">
+
+                    <li>
+                        <a href="https://www.instagram.com/ArteGuapinol/" target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-2 hover:text-lime-300">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" aria-hidden="true">
+                                <rect x="3" y="3" width="18" height="18" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+                            </svg>
+                            Instagram @ArteGuapinol
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://wa.me/50684131678" target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-2 hover:text-lime-300">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.25-1.38A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.3 15l-.3-.18-3.1.82.83-3.03-.2-.31A8.1 8.1 0 0 1 12.04 3.8zM8.7 7.6c-.2 0-.5.07-.75.35-.25.28-.97.95-.97 2.3s.99 2.7 1.13 2.88c.14.18 1.9 3.05 4.7 4.15 2.3.9 2.77.72 3.27.68.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.12-.25-.18-.52-.32-.27-.13-1.6-.79-1.85-.88-.25-.09-.43-.13-.6.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.35-.81-.72-1.36-1.62-1.52-1.9-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.6-1.47-.83-2-.2-.48-.43-.41-.6-.42h-.5z" />
+                            </svg>
+                            WhatsApp 8413 1678
+                        </a>
+                    </li>
+
+                    <li>SINPE Móvil 8413 1678</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-stone-800">
+            <p class="max-w-6xl mx-auto px-4 py-5 text-xs text-stone-500">
+                © <span id="anio">2026</span> Artesanías Guapinol.
+                Proyecto de Programación III, UNA Sede Chorotega.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- ===== CARRITO ===== -->
+    <div id="carrito" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true"
+        aria-labelledby="carrito-titulo">
+
+        <div id="carrito-fondo" class="absolute inset-0 bg-guapinol-brown/50"></div>
+
+        <aside class="absolute right-0 top-0 flex flex-col h-full w-full max-w-md
+                      bg-guapinol-light shadow-2xl">
+
+            <div class="flex items-center justify-between border-b border-guapinol-brown/10 p-5">
+                <h2 id="carrito-titulo" class="text-xl font-display font-semibold">
+                    Tu carrito
+                </h2>
+
+                <button id="carrito-cerrar" type="button" class="h-10 w-10 rounded-full hover:bg-guapinol-cream"
+                    aria-label="Cerrar carrito">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Productos agregados -->
+            <ul id="carrito-lista" class="flex-1 overflow-y-auto space-y-3 p-5"></ul>
+
+            <div class="border-t border-guapinol-brown/10 p-5 space-y-3">
+
+                <p class="flex justify-between text-lg">
+                    Total
+                    <strong id="carrito-total">₡0</strong>
+                </p>
+
+                <label class="block text-sm font-medium">
+                    Tu nombre
+
+                    <input id="carrito-cliente" type="text" placeholder="Para identificar tu pedido" class="w-full mt-1 border border-stone-300 rounded-lg
+                                  bg-white px-3 py-2 font-normal">
+                </label>
+
+                <p id="carrito-error" class="min-h-5 text-sm text-red-600" role="alert"></p>
+
+                <button id="carrito-pedir" type="button" class="w-full rounded-full bg-lime-400 hover:bg-lime-500
+                               py-3 font-semibold text-stone-900">
+                    Pedir por WhatsApp
+                </button>
+
+                <button id="carrito-vaciar" type="button" class="w-full text-sm text-stone-500 underline">
+                    Vaciar carrito
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ===== VISTA 360° DEL CATÁLOGO ===== -->
+    <div id="modal-360" class="fixed inset-0 z-[70] hidden items-center justify-center p-4" role="dialog"
+        aria-modal="true" aria-labelledby="modal-360-titulo">
+
+        <!-- Fondo oscuro, al tocarlo se cierra -->
+        <div id="modal-360-fondo" class="absolute inset-0 bg-guapinol-brown/60"></div>
+
+        <div class="relative w-full max-w-lg rounded-3xl bg-guapinol-light p-5 shadow-2xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p id="modal-360-linea" class="text-sm text-stone-500"></p>
+                    <h2 id="modal-360-titulo" class="text-xl font-semibold font-display"></h2>
+                </div>
+
+                <button id="modal-360-cerrar" type="button"
+                    class="h-10 w-10 shrink-0 rounded-full hover:bg-guapinol-cream"
+                    aria-label="Cerrar vista 360°">✕</button>
+            </div>
+
+            <!-- Aquí gira el producto -->
+            <div id="visor-360" class="mt-4 aspect-square w-full cursor-grab touch-pan-y select-none
+                        rounded-2xl bg-white bg-no-repeat bg-[length:600%_600%]" role="img"></div>
+
+            <p class="mt-3 text-center text-sm text-stone-400">Arrastra para girar</p>
+        </div>
+    </div>
+
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="JS/config.js"></script>
+    <script src="JS/pedidos.js"></script>
+    <script src="JS/menu.js"></script>
+    <script src="JS/carrito.js"></script>
+    <script src="JS/vista360.js"></script>
+    <script src="JS/catalogo.js"></script>
+    <script src="JS/contacto.js"></script>
+    <script src="JS/ferias.js"></script>
+
+</body>
+
+</html>

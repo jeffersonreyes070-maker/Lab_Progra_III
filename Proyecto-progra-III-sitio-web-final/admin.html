@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Artesanías Guapinol</title>
+    <link rel="icon" href="assets/images/favicon.ico" sizes="any">
+
+    <!-- Tailwind y su configuración -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="JS/tailwind.config.js"></script>
+</head>
+
+<body class="bg-guapinol-light text-guapinol-green antialiased">
+
+    <!-- ===== ENCABEZADO ===== -->
+    <header class="border-b border-guapinol-brown/10">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="assets/images/logo.png" alt="Artesanías Guapinol" class="h-10 w-auto">
+                    <span class="font-display font-semibold">Administración</span>
+                </a>
+
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="text-sm hover:underline">Volver al sitio</a>
+                    <button id="boton-salir" type="button" class="hidden rounded-full border border-stone-300
+                               px-4 py-1.5 text-sm hover:border-stone-900">
+                        Cerrar sesión
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- ===== INICIO DE SESIÓN ===== -->
+        <section id="seccion-login">
+            <div class="max-w-md mx-auto rounded-2xl border border-guapinol-brown/10 bg-white shadow-sm p-6 sm:p-8">
+                <h1 class="text-2xl font-display font-semibold text-center">Acceso de administrador</h1>
+                <p class="mt-2 text-center text-sm text-guapinol-green/80">Solo para personal autorizado</p>
+
+                <form id="form-login" class="mt-6 space-y-4" novalidate>
+                    <div>
+                        <label for="usuario" class="block text-sm font-medium">Usuario</label>
+                        <input id="usuario" type="text" autocomplete="username"
+                            class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium">Contraseña</label>
+                        <input id="password" type="password" autocomplete="current-password"
+                            class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                    </div>
+
+                    <p id="error-login" class="text-sm text-red-600 min-h-5"></p>
+
+                    <button type="submit" class="w-full rounded-full bg-lime-400 hover:bg-lime-500
+                               py-2.5 font-semibold text-stone-900">
+                        Iniciar sesión
+                    </button>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- ===== PANEL DE PRODUCTOS ===== -->
+        <section id="seccion-panel" class="hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-display font-semibold">Productos</h1>
+                    <p class="mt-1 text-guapinol-green/80">Agregar, editar o eliminar productos del catálogo</p>
+                </div>
+
+                <button id="boton-nuevo" type="button" class="rounded-full bg-lime-400 hover:bg-lime-500
+                           px-6 py-2.5 font-semibold text-stone-900">
+                    + Nuevo producto
+                </button>
+            </div>
+
+            <p id="mensaje-panel" class="mt-4 text-sm text-red-600"></p>
+
+            <!-- Tabla de productos -->
+            <div class="mt-4 overflow-x-auto rounded-2xl border border-guapinol-brown/10 bg-white shadow-sm">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-guapinol-cream/60">
+                        <tr>
+                            <th class="text-left font-medium px-4 py-3">ID</th>
+                            <th class="text-left font-medium px-4 py-3">Foto</th>
+                            <th class="text-left font-medium px-4 py-3">Nombre</th>
+                            <th class="text-left font-medium px-4 py-3">Categoría</th>
+                            <th class="text-left font-medium px-4 py-3">Material</th>
+                            <th class="text-left font-medium px-4 py-3">Precio</th>
+                            <th class="text-left font-medium px-4 py-3">Disponible</th>
+                            <th class="text-right font-medium px-4 py-3">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-productos"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ===== VENTANA PARA AGREGAR O EDITAR ===== -->
+    <div id="ventana-producto" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true">
+
+        <!-- Fondo oscuro, al tocarlo se cierra -->
+        <div id="ventana-fondo" class="absolute inset-0 bg-guapinol-brown/50"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="w-full max-w-lg max-h-full overflow-y-auto rounded-2xl bg-white shadow-2xl">
+
+                <div class="flex items-center justify-between border-b border-stone-200 px-6 py-4">
+                    <h2 id="titulo-ventana" class="text-lg font-semibold">Nuevo producto</h2>
+                    <button id="boton-cerrar" type="button" class="h-9 w-9 rounded-full hover:bg-stone-100"
+                        aria-label="Cerrar">✕</button>
+                </div>
+
+                <form id="form-producto" class="px-6 py-5 space-y-4" novalidate>
+                    <!-- vacío = producto nuevo (POST), con número = editar (PATCH) -->
+                    <input type="hidden" id="producto-id">
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="sm:col-span-2">
+                            <label for="p-nombre" class="block text-sm font-medium">Nombre</label>
+                            <input id="p-nombre" class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label for="p-linea" class="block text-sm font-medium">Línea</label>
+                            <input id="p-linea" class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                        </div>
+
+                        <div>
+                            <label for="p-categoria" class="block text-sm font-medium">Categoría</label>
+                            <select id="p-categoria" class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                                <option value="pulseras">Pulseras</option>
+                                <option value="collares">Collares</option>
+                                <option value="llaveros">Llaveros</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="p-material" class="block text-sm font-medium">Material</label>
+                            <select id="p-material" class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                                <option value="Macramé">Macramé</option>
+                                <option value="Semillas">Semillas</option>
+                                <option value="Madera">Madera</option>
+                                <option value="Cuentas">Cuentas</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="p-precio" class="block text-sm font-medium">Precio (₡)</label>
+                            <input id="p-precio" type="number" min="1" step="1"
+                                class="w-full mt-1 border border-stone-300 rounded-lg px-3 py-2">
+                        </div>
+
+                        <div class="flex items-end gap-2 pb-2">
+                            <input id="p-disponible" type="checkbox" class="h-4 w-4">
+                            <label for="p-disponible" class="text-sm">Disponible en la tienda</label>
+                        </div>
+
+                        <!-- Foto: se elige un archivo, se sube al servidor y se guarda su nombre -->
+                        <div class="sm:col-span-2">
+                            <label for="p-archivo" class="block text-sm font-medium">Foto</label>
+                            <input id="p-archivo" type="file" accept="image/jpeg,image/png,image/webp"
+                                class="w-full mt-1 text-sm">
+
+                            <div class="flex items-center gap-3 mt-2">
+                                <img id="p-vista-foto" src="" alt="" class="hidden h-14 w-14 object-contain
+                                     rounded border border-stone-200">
+                                <input id="p-foto" readonly placeholder="Todavía no hay foto"
+                                    class="flex-1 border border-stone-200 bg-stone-50 rounded-lg px-3 py-2 text-sm">
+                            </div>
+
+                            <p id="estado-foto" class="text-xs text-stone-400 mt-1">JPG, PNG o WEBP, máximo 5 MB</p>
+                        </div>
+                    </div>
+
+                    <p id="error-producto" class="text-sm text-red-600 min-h-5"></p>
+
+                    <div class="flex items-center justify-end gap-2">
+                        <button id="boton-cancelar" type="button"
+                            class="rounded-full border border-stone-300 px-5 py-2">Cancelar</button>
+                        <button type="submit" class="rounded-full bg-lime-400 hover:bg-lime-500
+                                   px-5 py-2 font-semibold text-stone-900">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="JS/config.js"></script>
+    <script src="JS/pedidos.js"></script>
+    <script src="JS/admin.js"></script>
+</body>
+
+</html>
