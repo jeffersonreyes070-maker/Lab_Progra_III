@@ -22,7 +22,7 @@ npm run start:dev
 
 El servidor queda corriendo en http://localhost:3000
 
-La primera vez hay que poner `DB_SYNCHRONIZE=true` en `.env`: así el servidor crea la tabla `productos` y la llena con los 16 productos iniciales. Después se vuelve a poner en `false`, para que un cambio en el código nunca borre datos guardados.
+La primera vez que arranca, crea la tabla `productos` y la llena con los 16 productos iniciales. Las siguientes veces usa lo que ya está guardado.
 
 Si en Windows PowerShell no deja correr `npm`, se puede usar `npm.cmd run start:dev` o abrir la terminal CMD.
 
@@ -52,17 +52,6 @@ Authorization: Bearer (el token)
 ```
 
 Al cerrar sesión el token deja de servir. Los tokens se guardan en la memoria del servidor, así que si el servidor se reinicia hay que volver a iniciar sesión.
-
-Después de 5 contraseñas incorrectas el login se bloquea 10 minutos (responde 429).
-
-## Seguridad
-
-- Contraseñas y claves en `.env` / variables de entorno, nunca en GitHub.
-- Tokens al azar que vencen a las 2 horas o al cerrar sesión.
-- Límite de 5 intentos de login.
-- CORS: solo se aceptan peticiones del sitio (Live Server en la computadora y la dirección de `FRONTEND_URL` publicado).
-- En el sitio, los textos de los productos pasan por `textoSeguro` antes de ponerse en el HTML (evita XSS).
-- Dependencias revisadas con `npm audit` (multer se fuerza a una versión corregida con `overrides`).
 
 ## Endpoints
 
@@ -94,7 +83,7 @@ Si se mandan datos incorrectos responde 400, si falta el token o la contraseña 
 
 - Comando para compilar: `npm install && npm run build`
 - Comando para iniciar: `npm start`
-- Las mismas variables del archivo `.env` se ponen en "Environment Variables" del servicio, más `FRONTEND_URL` con la dirección del sitio
+- Las mismas variables del archivo `.env` se ponen en "Environment Variables" del servicio
 - En el sitio, la dirección del backend publicado va en `JS/config.js`
 
 ## Pruebas

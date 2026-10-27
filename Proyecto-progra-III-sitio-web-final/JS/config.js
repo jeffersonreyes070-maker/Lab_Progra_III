@@ -4,7 +4,7 @@
 // dirección del backend publicado
 // (cambiar por la que da Render o Heroku al crear el servicio,
 //  por ejemplo 'https://guapinol-api.onrender.com', sin / al final)
-let API_URL = 'https://DIRECCION-DEL-BACKEND';
+let API_URL = 'https://guapinol-api.onrender.com';
 
 // si la página se abre en la computadora (Live Server), usa el backend local
 if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
