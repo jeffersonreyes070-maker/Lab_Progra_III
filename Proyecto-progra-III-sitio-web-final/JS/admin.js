@@ -1,7 +1,5 @@
 // admin.js: inicio de sesión y administración de productos (agregar, editar, eliminar)
 
-// la dirección del backend (API_URL) está en config.js
-
 // el token se guarda en el navegador para no pedir la contraseña cada vez
 let token = localStorage.getItem('token-admin');
 
