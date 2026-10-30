@@ -1,9 +1,7 @@
 // config.js: dirección del backend (NestJS)
-// la usan catalogo.js y admin.js, por eso se carga antes que ellos
+// catalogo.js y admin.js usan esta variable para peticiones al backend
 
 // dirección del backend publicado
-// (cambiar por la que da Render o Heroku al crear el servicio,
-//  por ejemplo 'https://guapinol-api.onrender.com', sin / al final)
 let API_URL = 'https://guapinol-api.onrender.com';
 
 // si la página se abre en la computadora (Live Server), usa el backend local
